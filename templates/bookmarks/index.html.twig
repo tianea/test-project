@@ -3,7 +3,9 @@
 {% block content %}
         {% for bookmark in bookmarks %}
             <p>
-                {{ bookmark.title }}
+                <a href="{{ url('bookmark_view', {'bookmarkId': bookmark.id}) }}">
+                    {{ bookmark.title }}
+                </a>
                 {{ bookmark.url }}
                 {% for tag in bookmark.tags %}
                     {{ tag }}

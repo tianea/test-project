@@ -19,7 +19,8 @@ class BookmarkModel
      * @var array $bookmarks
      */
     protected $bookmarks = [
-        [
+        1 => [
+            'id' => 1,
             'title' => 'PHP manual',
             'url'   => 'http://php.net',
             'tags'  => [
@@ -27,7 +28,8 @@ class BookmarkModel
                 'manual',
             ],
         ],
-        [
+        2 => [
+            'id' => 2,
             'title' => 'Silex',
             'url'   => 'http://silex.sensiolabs.org',
             'tags'  => [
@@ -36,7 +38,8 @@ class BookmarkModel
                 'Silex',
             ],
         ],
-        [
+        3 => [
+            'id' => 3,
             'title' => 'Learn Git Branching',
             'url'   => 'http://learngitbranching.js.org',
             'tags'  => [
@@ -46,7 +49,8 @@ class BookmarkModel
                 'tutorials',
             ],
         ],
-        [
+        4 => [
+            'id' => 4,
             'title' => 'PhpStorm',
             'url'  => 'https://www.jetbrains.com/phpstorm',
             'tags' => [
@@ -55,7 +59,8 @@ class BookmarkModel
                 'PHP',
             ],
         ],
-        [
+        5 => [
+            'id' => 5,
             'title' => 'Twig',
             'url'  => 'http://twig.sensiolabs.org',
             'tags' => [
@@ -79,7 +84,7 @@ class BookmarkModel
     }
 
     /**
-     * Find bookmark by its id.
+     * Find bookmark by id.
      *
      * @param integer $id Bookmark id
      *
@@ -87,12 +92,12 @@ class BookmarkModel
      */
     public function findOneById($id)
     {
-        $bookmark = [];
+        $bookmark = $this->bookmarks[$id];
 
-        if (isset($this->bookmarks[$id]) && count($this->bookmarks[$id])) {
-            $bookmark = $this->bookmarks[$id];
+        if (isset($bookmark) && count($bookmark)) {
+            return $bookmark;
         }
 
-        return $bookmark;
+        return [];
     }
 }
