@@ -1,0 +1,11 @@
+{% extends "layout.html.twig" %}
+{% block title %}Bookmark {{ bookmarkId }}{% endblock %}
+{% block content %}
+    <p>
+        {{ bookmark.title }}
+        {{ bookmark.url }}
+        {% for tag in bookmark.tags %}
+            {{ tag }}
+        {% endfor %}
+    </p>
+{% endblock %}
