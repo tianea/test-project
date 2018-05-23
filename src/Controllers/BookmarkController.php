@@ -17,16 +17,31 @@ class BookmarkController implements ControllerProviderInterface
     public function connect(Application $app)
     {
         $controller = $app['controllers_factory'];
+        $controller->get('/', [$this, 'indexAction'])->bind('bookmark_index');
         $controller->get('view/{bookmarkId}', [$this, 'viewAction'])->bind('bookmark_view');
 
         return $controller;
     }
 
+    public function indexAction(Application $app)
+    {
+        $bookmarkModel = new BookmarkModel();
+        $bookmarks = $bookmarkModel->findAll();
+        if (!isset($bookmarks) || !count($bookmarks)) {
+            $app->abort('404', 'Invalid entry');
+        }
+        return $app['twig']->render(
+            'bookmarks/index.html.twig',
+            ['bookmarks' => $bookmarks]
+        );
+    }
+
+
     public function viewAction(Application $app, $bookmarkId)
     {
         $bookmarkModel = new BookmarkModel();
         $bookmark = $bookmarkModel->findOneById($bookmarkId);
-        if(!isset($bookmark) || !count($bookmark)){
+        if (!isset($bookmark) || !count($bookmark)) {
             $app->abort('404', 'Invalid entry');
         }
         return $app['twig']->render(
